@@ -8,7 +8,9 @@ on:
     branches:
       - "master"
 
-strategy:
+jobs:
+  test:
+    runs-on: ubuntu-latest
     steps:
         # Checkout the latest code from the repo
       - name: Checkout repo
