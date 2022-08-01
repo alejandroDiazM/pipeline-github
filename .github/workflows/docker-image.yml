@@ -16,3 +16,5 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag app_image
+    - name: Run the Docker container
+      run: docker run app_image:latest
