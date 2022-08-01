@@ -1,4 +1,4 @@
-from ..main import even_numbers, print_test
+from main import print_test, even_numbers
 
 def test_print():
     result = print_test()
