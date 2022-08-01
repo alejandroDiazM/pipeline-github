@@ -8,6 +8,7 @@ on:
     branches:
       - "master"
 
+strategy:
     steps:
         # Checkout the latest code from the repo
       - name: Checkout repo
