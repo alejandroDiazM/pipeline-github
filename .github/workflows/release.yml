@@ -6,10 +6,10 @@ on:
   pull_request:
     branches: [ "master" ]
     tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10 
+      - 'v*.*.*' # Push events to matching tags, i.e. v1.0.0
 
 env:
-  RELEASE_TAG: 'v1.3.0'
+  RELEASE_TAG: 'v1.3.0' # Change it manually on push
 
 jobs:
   build:
