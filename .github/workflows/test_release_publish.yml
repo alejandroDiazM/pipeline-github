@@ -5,13 +5,11 @@ on:
       branches: [ "master" ]
   pull_request:
       branches: [ "master" ]
-
-env:
-  RELEASE_TAG: 'v1.3.0'
   
 jobs:
 
   test:
+    name: Run Tests
     runs-on: ubuntu-latest
     steps:
         # Checkout the latest code from the repo
@@ -28,21 +26,6 @@ jobs:
           pip install pytest
       - name: Run tests
         run: pytest
-  
-  release:
-    name: Create Release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ env.RELEASE_TAG }}
-          release_name: Release ${{ env.RELEASE_TAG }}       
   
   push_to_registry:
     name: Push Docker image to Docker Hub
