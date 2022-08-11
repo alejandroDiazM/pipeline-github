@@ -8,6 +8,9 @@ on:
     tags:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10 
 
+env:
+  RELEASE_TAG: 'v1.3.0'
+
 jobs:
   build:
     name: Create Release
@@ -21,6 +24,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ secrets.VERSION_TAG }}
-          release_name: Release ${{ secrets.VERSION_TAG }}
+          tag_name: ${{ env.RELEASE_TAG }}
+          release_name: Release ${{ env.RELEASE_TAG }}
           
