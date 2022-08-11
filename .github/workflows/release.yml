@@ -9,7 +9,7 @@ on:
       - 'v*.*.*' # Push events to matching tags, i.e. v1.0.0
 
 env:
-  RELEASE_TAG: 'v1.3.0' # Change it manually on push
+  RELEASE_TAG: 'v1.4.0' # Change it manually on push
 
 jobs:
   build:
