@@ -36,7 +36,10 @@ jobs:
       - name: Set Tag
         run: echo ${{ env.RELEASE_VERSION }}
       - name: Get the version
-        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+        run: |
+          echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+          echo ${{ VERSION }}
+        
   
   push_to_registry:
     name: Push Docker image to Docker Hub
