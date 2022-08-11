@@ -57,5 +57,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${GITHUB_REF/refs\/tags\/latest}
-          labels: ${GITHUB_REF/refs\/tags\/latest}
+          tags: ${GITHUB_REF/refs/tags/latest}
+          labels: ${GITHUB_REF/refs/tags/latest}
