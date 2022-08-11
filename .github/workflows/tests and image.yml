@@ -3,6 +3,8 @@ name: Run Tests and Publish Docker image on DockerHub
 on:
   push:
       branches: [ "master" ]
+      tags:
+        - 'v*.*.*'
   pull_request:
       branches: [ "master" ]
 
@@ -58,3 +60,4 @@ jobs:
           context: .
           push: true
           tags: ${{ env.RELEASE_VERSION }}
+          labels: ${{ env.RELEASE_VERSION }}
