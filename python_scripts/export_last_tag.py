@@ -1,21 +1,20 @@
-import sys
 import requests
+from github import Github
+from properties import TOKEN
 
-project_id = sys.argv[1]
-auth_token = sys.argv[2]
-
-header = {'Authorization': f'Bearer {auth_token}'}
 try:
-    r = requests.get(f'https://gitlab.com/api/v4/projects/{project_id}/releases', headers=header)
-    r.raise_for_status()
+    gh_conn = Github(TOKEN)
+    user = gh_conn.get_user()
+    repo = user.get_repo("pipeline_test")
+    releases = repo.get_tags()
 
-    releases = r.json()
     if not releases:
         print(f"export FIRST_RELEASE=1")
     else:
-        last_tag = releases[0].get('tag_name')
+        last_tag = releases[0].get('name')
         print(f"export LAST_TAG={last_tag}")
         print(f"export FIRST_RELEASE=0")
 
 except requests.HTTPError:
     exit(1)
+
