@@ -21,8 +21,8 @@ jobs:
 
       - name: Get last tag
         run: |
-        pip install requests
-        eval `python ./gitlab_ci_scripts/export_last_tag.py $CI_PROJECT_ID $CI_JOB_TOKEN`
+          pip install requests
+          eval `python ./gitlab_ci_scripts/export_last_tag.py $CI_PROJECT_ID $CI_JOB_TOKEN`
 
       - name: Check if we are on fist release
         run: |
