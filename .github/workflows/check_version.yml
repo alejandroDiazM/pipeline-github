@@ -24,13 +24,13 @@ jobs:
       - name: Get last tag
         run: |
           pip install requests
-          eval `python ./gitlab_ci_scripts/export_last_tag.py $CI_PROJECT_ID $CI_JOB_TOKEN`
+          eval `python ./python_scripts/export_last_tag.py $CI_PROJECT_ID $CI_JOB_TOKEN`
 
       - name: Check if we are on fist release
         run: |
           pip install packaging
           if [[ $FIRST_RELEASE -eq 0 ]] ; then
-            eval `python ./gitlab_ci_scripts/version_compare.py $APP_VERSION $LAST_TAG`
+            eval `python ./python_scripts/version_compare.py $APP_VERSION $LAST_TAG`
           fi
 
       - name: Check if version is valid
