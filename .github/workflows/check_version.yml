@@ -1,0 +1,41 @@
+name: Before Merging
+
+on:
+  push: [ "main" ]
+
+jobs:
+  check-tag:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Get current version
+        run: APP_VERSION=$(grep -E -o 'v[0-9]+\.[0-9]+\.[0-9]+' Dockerfile)
+
+      - name: Get last tag
+        run: |
+        pip install requests
+        eval `python ./gitlab_ci_scripts/export_last_tag.py $CI_PROJECT_ID $CI_JOB_TOKEN`
+
+      - name: Check if we are on fist release
+        run: |
+          pip install packaging
+          if [[ $FIRST_RELEASE -eq 0 ]] ; then
+            eval `python ./gitlab_ci_scripts/version_compare.py $APP_VERSION $LAST_TAG`
+          fi
+
+      - name: Check if version is valid
+        run: |
+          if [ -z "$VALID_VERSION" ] ; then
+            echo "New release is being generated"
+          elif [ "$VALID_VERSION" -eq 0 ] ; then
+            echo "ERROR. Version has not increased."
+            exit 1
+          fi
