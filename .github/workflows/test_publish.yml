@@ -1,4 +1,4 @@
-name: Run Tests and Publish Docker image on DockerHub
+name: Run Tests, Publish Image, and Create Release
 
 on:
   push:
@@ -49,7 +49,7 @@ jobs:
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: alejandrodaxians/github_pipeline_test
-          
+
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
@@ -57,3 +57,24 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.tags }}
+
+  release:
+      name: Create Release
+      runs-on: ubuntu-latest
+      needs: push_to_registry
+      steps:
+
+        - name: Checkout Code
+        - uses: actions/checkout@v3
+
+        - name: Get Tag from Dockerfile
+          run: echo "APP_VERSION=$(grep -E -o 'v[0-9]+\.[0-9]+\.[0-9]+' Dockerfile)" >> $GITHUB_ENV
+
+        - name: Create Release
+          id: create_release
+          uses: actions/create-release@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          with:
+            tag_name: ${{ env.APP_VERSION }}
+            release_name: Release ${{ env.APP_VERSION }}
