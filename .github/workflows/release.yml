@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "master" ]
 
+env:
+  APP_VERSION: ""
+
 jobs:
   build:
     name: Create Release
@@ -21,7 +24,7 @@ jobs:
 
       - name: Test env
         run: |
-          echo $APP_VERSION
+          echo $ {{ env.APP_VERSION }}
 
       # - name: Create Release
       #   id: create_release
