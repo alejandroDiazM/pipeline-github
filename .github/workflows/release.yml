@@ -24,7 +24,7 @@ jobs:
 
       - name: Test env
         run: |
-          echo $ {{ env.APP_VERSION }}
+          echo ${{ env.APP_VERSION }}
 
       # - name: Create Release
       #   id: create_release
